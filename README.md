@@ -1,7 +1,7 @@
 # envx
 
-A native-executable, cross-platform, cross-language command-line utility for managing environment variables during development workflows in a robust way.  It was inspired by the "Profiles" feature of the Conan Package Manager for C and C++.  It is also somewhat inspired by a common convention shared by Python, Docker, and others which is supporting `-e env_var` and `-e env_var=value` as command-line arguments.  It also aims to enable users to make use of the existing `.env` file format which is becoming somewhat in some ecosystems. 
-
+`envx` aims to provide a native, cross-platform, cross-language command-line utility for managing environment variables during development workflows in a robust way.  It was inspired by the "Profiles" feature of the Conan Package Manager for C and C++.  It is also somewhat inspired by a common convention shared by Python, Docker, and others which is supporting `-e env_var` and `-e env_var=value` as command-line arguments.  It also aims to enable users to make use of the existing `.env` file format which is becoming somewhat in some ecosystems. 
+	
 # Build Instructions
 
 ## Windows: 
