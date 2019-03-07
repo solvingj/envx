@@ -2,6 +2,18 @@
 
 A native-executable, cross-platform, cross-language command-line utility for managing environment variables during development workflows in a robust way.  It was inspired by the "Profiles" feature of the Conan Package Manager for C and C++.  It is also somewhat inspired by a common convention shared by Python, Docker, and others which is supporting `-e env_var` and `-e env_var=value` as command-line arguments.  It also aims to enable users to make use of the existing `.env` file format which is becoming somewhat in some ecosystems. 
 
+# Build Instructions
+
+## Windows: 
+	go build -o envx.exe main/main.go
+	
+## Linux/macOS
+	go build -o envx main/main.go
+	
+# Installation Instructions
+
+TODO: In the near future, will setup CI to build and publish binaries. 
+
 # Background
 
 Environment variables are one of very few "common coins" used by virtually all operating systems of software devlopment ecosystems. They are used for managing both local development environments, and are essential for automation in CI platforms and cloud services.  In many cases, they are commonly set in `sh` and `bat` scripts prior to launching developer tools.  In CI systems, we see environment variables representing the cornerstone of a "delcarative" instruction set. They are also compositional in nature, allowing variables to be overridden or appended to at any point later in the call stack.  In practice, they function as implicit arguments which can flow through to any tool involved in a scripted process or pipeline, without intermediate tools and scripts needing to know about them.   
