@@ -15,15 +15,16 @@
 
 Precompiled binaries for Windows, Linux, and macOS are hosted on Bintray.com (courtesy of JFrog).  Eventually, we may package them and submit to the various package managers. 
 
-On macos:   
+Windows:    
+    POSH: `curl -OutFile envx.exe https://dl.bintray.com/solvingj/public-bin/windows_x64/envx.exe`    
+    CMD: `powershell -command "curl -OutFile envx.exe https://dl.bintray.com/solvingj/public-bin/windows_x64/envx.exe"`  
+	
+macOS:   
     `curl -L "https://dl.bintray.com/solvingj/public-bin/macos_x64/envx" -o envx`
 
-On linux:    
+Linux:    
     `curl -L "https://dl.bintray.com/solvingj/public-bin/linux_x64/envx" -o envx`
     
-On windows:    
-    POSH: `curl -OutFile envx.exe https://dl.bintray.com/solvingj/public-bin/windows_x64/envx.exe`
-    CMD: `powershell -command "curl -OutFile envx.exe https://dl.bintray.com/solvingj/public-bin/windows_x64/envx.exe"`
 
 # Build Instructions
 
