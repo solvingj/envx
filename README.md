@@ -1,20 +1,46 @@
+# Build Status
+| windows | macos | linux | 
+|-----------|---------|-------|
+|[![Build Status](https://jerrywiltse.visualstudio.com/envx/_apis/build/status/envx?branchName=master&jobName=windows_x64)](https://jerrywiltse.visualstudio.com/envx/_build/latest?definitionId=3&branchName=master)|[![Build Status](https://jerrywiltse.visualstudio.com/envx/_apis/build/status/envx?branchName=master&jobName=macos_x64)](https://jerrywiltse.visualstudio.com/envx/_build/latest?definitionId=3&branchName=master)|[![Build Status](https://jerrywiltse.visualstudio.com/envx/_apis/build/status/envx?branchName=master&jobName=linux_x64)](https://jerrywiltse.visualstudio.com/envx/_build/latest?definitionId=3&branchName=master)
+
+# Latest Version
+[ ![Download](https://api.bintray.com/packages/solvingj/public-bin/envx/images/download.svg) ](https://bintray.com/solvingj/public-bin/envx/_latestVersion)
+
+
 # envx
 
 `envx` aims to provide a native, cross-platform, cross-language command-line utility for managing environment variables during development workflows in a robust way.  It was inspired by the "Profiles" feature of the Conan Package Manager for C and C++.  It is also somewhat inspired by a common convention shared by Python, Docker, and others which is supporting `-e env_var` and `-e env_var=value` as command-line arguments.  It also aims to enable users to make use of the existing `.env` file format which is becoming somewhat in some ecosystems. 
-	
+    
+# Download Instructions
+
+Precompiled binaries for Windows, Linux, and macOS are hosted on Bintray.com (courtesy of JFrog).  Eventually, we may package them and submit to the various package managers. 
+
+On macos:   
+    `curl -L "https://dl.bintray.com/solvingj/public-bin/macos_x64/envx" -o envx`
+
+On linux:    
+    `curl -L "https://dl.bintray.com/solvingj/public-bin/linux_x64/envx" -o envx`
+    
+On windows:    
+    POSH: `curl -OutFile envx.exe https://dl.bintray.com/solvingj/public-bin/windows_x64/envx.exe`
+    CMD: `powershell -command "curl -OutFile envx.exe https://dl.bintray.com/solvingj/public-bin/windows_x64/envx.exe"`
+
 # Build Instructions
 
+If you want to contribute to the code, all you need is a recent version of Go (1.10.0+).  With that, you can just run these commands in the root of the repository: 
+
 ## Windows: 
-	go build -o envx.exe main/main.go
-	
+    go build -o envx.exe
+    
 ## Linux/macOS
-	go build -o envx main/main.go
-	
-# Installation Instructions
+    go build -o envx
 
-TODO: In the near future, will setup CI to build and publish binaries. 
+To run unit tests, use the following standard command: 
 
-# Background
+    go test ./...
+    
+    
+# Domain Background
 
 Environment variables are one of very few "common coins" used by virtually all operating systems of software devlopment ecosystems. They are used for managing both local development environments, and are essential for automation in CI platforms and cloud services.  In many cases, they are commonly set in `sh` and `bat` scripts prior to launching developer tools.  In CI systems, we see environment variables representing the cornerstone of a "delcarative" instruction set. They are also compositional in nature, allowing variables to be overridden or appended to at any point later in the call stack.  In practice, they function as implicit arguments which can flow through to any tool involved in a scripted process or pipeline, without intermediate tools and scripts needing to know about them.   
 
@@ -34,18 +60,18 @@ While `envx` does not aim to eliminate the use of wrapper scripts for developmen
 
 Here is a loose description of how many scripts function in many respositories: 
 
-	scripts_dir
-		run_tests.xyz -> sets vars -> calls test suite
-		build_all_dev.xyz -> sets vars -> calls build system
-		build_all_prod.xyz -> sets  vars -> calls build system
-		deploy_nightly.xyz -> ...
+    scripts_dir
+        run_tests.xyz -> sets vars -> calls test suite
+        build_all_dev.xyz -> sets vars -> calls build system
+        build_all_prod.xyz -> sets  vars -> calls build system
+        deploy_nightly.xyz -> ...
 
 With this pattern, it's very difficult to find a good balance between making the scripts "turn-key" and making the scripts "flexible".  When trying to make common operations "turn-key", you end up with a bunch of single-purpose scripts which gets messy and still don't address all the common workflows for the team.  Developers will still often have to modify or copy scripts to suit their specific needs.  When trying to have fewer scripts which are more flexible, you end up writing, exposing, and maintaining worse APIs to each of the tools the script will call. 
 
 With `envx`, the workflow of a given script can look like this instead: 
 
-		envx run --with-env somevars.env --with-env somevars2.env "build system" 
-		
+                envx run --with-env somevars.env --with-env somevars2.env "build system" 
+        
 As mentioned earlier, we get several immediate benefits with this approach.  We get composition of environment variables which are stored in declarative, non-proprietary way.  We get behavior that is consistent across any platform and ecosystem.  The variables used by our pipelines are now completely decoupled from our current scripting language.  We can now have fewer and slimmer scripts, and more freedom to change our scripting mechanisms.  Furthermore, in many cases, we can call our tools directly without using a script at all.  
 
 
