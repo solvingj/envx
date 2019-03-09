@@ -1,15 +1,15 @@
 variables:
-  GOBIN_NAME:  "$(GOPATH)/bin" # Go binaries path
+  GOBIN:  "$(GOPATH)/bin" # Go binaries path
   GOPATH: "$(system.defaultWorkingDirectory)/gopath"
   GO111MODULE: "on"
   MODULEPATH: "$(GOPATH)/src/github.com/$(build.repository.name)"
-  BIN_NAME: $(Build.DefinitionName)
-  VERSION: $(Build.SourceBranchName)
-  PLATFORM: $(System.Phasename)
+  PKG: $(Build.DefinitionName)
+  VER: $(Build.SourceBranchName)
+  PLAT: $(System.Phasename)
   BT_API: https://api.bintray.com/content
   BT_REPO: public-bin
   BT_OPTS: publish=1&override=1
-  BT_URL: $(BT_API)/$(BT_USER)/$(BT_REPO)/$(BIN_NAME)/$(VERSION)/$(PLATFORM)?$(BT_OPTS)
+  BT_URL: $(BT_API)/$(BT_USER)/$(BT_REPO)/$(PKG)/$(VER)/$(PLAT)/$(FILE)?$(BT_OPTS)
   
 trigger:
   branches:
@@ -20,34 +20,34 @@ trigger:
 jobs:
   - job: windows_x64
     variables: 
-      BIN_FILENAME: $(BIN_NAME).exe
+      FILE: $(PKG).exe
     pool:
       vmImage: "vs2017-win2016"
     steps:
-      - script: go build -o $(BIN_FILENAME)
+      - script: go build -o $(FILE)
         displayName: go_build
-      - script: curl -T $(BIN_FILENAME) -u$(BT_USER):$(BT_KEY) "$(BT_URL)"
+      - script: curl -T $(FILE) -u$(BT_USER):$(BT_KEY) "$(BT_URL)"
         displayName: bintray_publish
         condition: startsWith(variables['Build.SourceBranch'], 'refs/tags')
   - job: macos_x64
     variables: 
-      BIN_FILENAME: $(BIN_NAME)
+      FILE: $(PKG)
     pool:
       vmImage: "macOS-10.13"
     steps:
-      - script: go build -o $(BIN_FILENAME)
+      - script: go build -o $(FILE)
         displayName: go_build
-      - script: curl -T $(BIN_FILENAME) -u$(BT_USER):$(BT_KEY) "$(BT_URL)"
+      - script: curl -T $(FILE) -u$(BT_USER):$(BT_KEY) "$(BT_URL)"
         displayName: bintray_publish
         condition: startsWith(variables['Build.SourceBranch'], 'refs/tags')
   - job: linux_x64
     variables: 
-      BIN_FILENAME: $(BIN_NAME)
+      FILE: $(PKG)
     pool:
       vmImage: "ubuntu-16.04"
     steps:
-      - script: go build -o $(BIN_FILENAME)
+      - script: go build -o $(FILE)
         displayName: go_build
-      - script: curl -T $(BIN_FILENAME) -u$(BT_USER):$(BT_KEY) "$(BT_URL)"
+      - script: curl -T $(FILE) -u$(BT_USER):$(BT_KEY) "$(BT_URL)"
         displayName: bintray_publish
         condition: startsWith(variables['Build.SourceBranch'], 'refs/tags')
