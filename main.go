@@ -1,16 +1,17 @@
 package main
 
 import (
-	"github.com/jfrog/jfrog-cli-go/jfrog-cli/utils/cliutils"
-	"github.com/jfrog/jfrog-client-go/utils/log"
+	"github.com/sirupsen/logrus"
 	"github.com/solvingj/envx/commands"
+	"github.com/solvingj/envx/system"
 	"os"
 )
 
 func main() {
-	log.SetLogger(log.NewLogger(GetCliLogLevel()))
+	var log = logrus.New()
+	log.SetLevel(GetCliLogLevel())
 	err := execMain()
-	cliutils.ExitOnErr(err)
+	system.ExitOnErr(err)
 }
 
 func execMain() error {
@@ -20,15 +21,15 @@ func execMain() error {
 	return err
 }
 
-func GetCliLogLevel() log.LevelType {
+func GetCliLogLevel() logrus.Level {
 	switch os.Getenv("ENVX_CLI_LOG_LEVEL") {
 	case "ERROR":
-		return log.ERROR
+		return logrus.ErrorLevel
 	case "WARN":
-		return log.WARN
+		return logrus.WarnLevel
 	case "DEBUG":
-		return log.DEBUG
+		return logrus.DebugLevel
 	default:
-		return log.INFO
+		return logrus.InfoLevel
 	}
 }

@@ -3,11 +3,11 @@ package env
 import (
 	"errors"
 	"fmt"
-	"github.com/jfrog/jfrog-client-go/utils/io/fileutils"
-	"github.com/jfrog/jfrog-client-go/utils/log"
 	"github.com/joho/godotenv"
 	"github.com/solvingj/envx/config"
+	"github.com/solvingj/envx/system"
 	"io/ioutil"
+	"log"
 	"path/filepath"
 	"strings"
 )
@@ -16,7 +16,7 @@ func getEnvxEnvDir() (string, error) {
 	envxHomeDir, err := config.GetEnvxHomeDir()
 	if err != nil {
 		return "", err
-	} else{
+	} else {
 		return filepath.Join(envxHomeDir, EnvxEnvDirDefault), err
 	}
 }
@@ -29,23 +29,19 @@ func ReadEnv(envName string) (*Env, error) {
 	var envPath = filepath.Join(envDir, envName)
 
 	var envPathFull = ""
-	for _, ext := range []string{"env", "envx", "json", "yaml"}{
+	for _, ext := range []string{"env", "envx", "json", "yaml"} {
 		envPathFullCurrent := envPath + "." + ext
-		exists, err := fileutils.IsFileExists(envPathFullCurrent, false)
-		if err != nil {
-			return nil, err
-		}else{
-			if exists{
-				envPathFull = envPathFullCurrent
-				break
-			}
+		exists := system.FileExists(envPathFullCurrent)
+		if exists {
+			envPathFull = envPathFullCurrent
+			break
 		}
 	}
 
 	if envPathFull == "" {
 		return nil, errors.New(fmt.Sprintf("No environment found with name: %s in directory %s", envName, envDir))
 	}
-	content, err := fileutils.ReadFile(envPathFull)
+	content, err := ioutil.ReadFile(envPathFull)
 	if err != nil {
 		return nil, err
 	}
@@ -66,21 +62,21 @@ func ReadEnv(envName string) (*Env, error) {
 func EnumerateEnvs() ([]string, error) {
 	envxHomeDir, err := config.GetEnvxHomeDir()
 	var envFullPath = filepath.Join(envxHomeDir, "env")
-	log.Debug(fmt.Sprintf("envFullPath = %s", envFullPath))
+	log.Println(fmt.Sprintf("envFullPath = %s", envFullPath))
 
 	files, err := ioutil.ReadDir(envFullPath)
 
 	if err != nil {
-		log.Error(err)
+		log.Fatal(err)
 	}
 	var envNames []string
 
 	for _, file := range files {
-		log.Debug(fmt.Sprintf("file = %s", file.Name()))
+		log.Println(fmt.Sprintf("file = %s", file.Name()))
 		filePrefix := strings.TrimSuffix(file.Name(), filepath.Ext(file.Name()))
-		log.Debug(fmt.Sprintf("filePrefix = %s", filePrefix))
+		log.Println(fmt.Sprintf("filePrefix = %s", filePrefix))
 		fileExt := filepath.Ext(file.Name())
-		log.Debug(fmt.Sprintf("fileExt = %s", fileExt))
+		log.Println(fmt.Sprintf("fileExt = %s", fileExt))
 		if fileExt == ".envx" {
 			envNames = append(envNames, filePrefix)
 		}
@@ -91,7 +87,7 @@ func EnumerateEnvs() ([]string, error) {
 			envNames = append(envNames, filePrefix)
 		}
 	}
-	log.Debug(fmt.Sprintf("envNames = %s", envNames))
+	log.Println(fmt.Sprintf("envNames = %s", envNames))
 
 	return envNames, nil
 }
@@ -105,7 +101,7 @@ func ListEnvs() error {
 	envNames, err := EnumerateEnvs()
 	if err != nil {
 		return err
-	}else{
+	} else {
 		for _, env := range envNames {
 			fmt.Println(env)
 		}
@@ -119,7 +115,7 @@ func printEnv(envId string) error {
 		return err
 	} else {
 		for key, val := range envContents.Vars {
-			log.Output(fmt.Sprintf("%s=\"%s\"", key, val))
+			log.Println(key + "=" + val)
 		}
 		return nil
 	}

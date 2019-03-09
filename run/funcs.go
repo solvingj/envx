@@ -3,7 +3,7 @@ package run
 import (
 	"bytes"
 	"fmt"
-	"github.com/jfrog/jfrog-client-go/utils/log"
+	log "github.com/sirupsen/logrus"
 	"io"
 	"os"
 	"os/exec"
@@ -16,7 +16,7 @@ func Run(command string, args []string, envVars []string, printVars[]string)(out
 	cmd.Env = envVars
 
 	if  len(printVars) > 0 {
-		log.Output("----Begin : Logged Environment Variables----")
+		log.Info("----Begin : Logged Environment Variables----")
 	}
 
 	for _, printEnvVar := range printVars{
@@ -26,13 +26,13 @@ func Run(command string, args []string, envVars []string, printVars[]string)(out
 			k := useEnvVarSplit[0]
 			v := useEnvVarSplit[1]
 			if printEnvVar == k {
-				log.Output(k + "=" + v)
+				log.Println(k + "=" + v)
 				log.Debug("Found var in passed-in-list of env vars: " + k)
 				break
 			}else{
 				envVar := os.Getenv(printEnvVar)
 				if envVar != ""{
-					log.Output(printEnvVar + "=" + envVar)
+					log.Println(printEnvVar + "=" + envVar)
 					log.Debug("Found env var environment: " + envVar)
 					break
 				}
@@ -41,7 +41,7 @@ func Run(command string, args []string, envVars []string, printVars[]string)(out
 		}
 	}
 	if len(printVars) > 0 {
-		log.Output("----End   : Logged Environment Variables----")
+		log.Println("----End   : Logged Environment Variables----")
 	}
 
 	var stdoutBuf, stderrBuf bytes.Buffer

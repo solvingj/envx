@@ -3,8 +3,8 @@ package config
 import (
 	"encoding/json"
 	"errors"
-	"github.com/jfrog/jfrog-client-go/utils/errorutils"
-	"github.com/jfrog/jfrog-client-go/utils/io/fileutils"
+	"github.com/solvingj/envx/system"
+	"io/ioutil"
 	"os"
 	"path/filepath"
 )
@@ -13,17 +13,17 @@ func GetEnvxHomeDir() (string, error) {
 
 	if os.Getenv(EnvxHomeDirEnv) != "" {
 		return os.Getenv(EnvxHomeDirEnv), nil
-	}
-
-	userHomeDir := fileutils.GetHomeDir()
-	if userHomeDir == "" {
-		err := errorutils.CheckError(errors.New("couldn't find home directory, make sure your HOME environment variable is set"))
-		if err != nil {
+	} else {
+		userHomeDir := system.HomeDir()
+		if userHomeDir == "" {
+			err := errors.New("couldn't find home directory, make sure your HOME environment variable is set")
 			return "", err
+		} else {
+			return filepath.Join(userHomeDir, EnvxDirNameDefault), nil
 		}
 	}
-	return filepath.Join(userHomeDir, EnvxDirNameDefault), nil
 }
+
 
 func ReadConfig() (*EnvxConfigV0, error) {
 	confFilePath, err := getConfFilePath()
@@ -31,14 +31,10 @@ func ReadConfig() (*EnvxConfigV0, error) {
 		return nil, err
 	}
 	conf := new(EnvxConfigV0)
-	exists, err := fileutils.IsFileExists(confFilePath, false)
-	if err != nil {
-		return nil, err
-	}
-	if !exists {
+	if !system.FileExists(confFilePath) {
 		return conf, nil
 	}
-	content, err := fileutils.ReadFile(confFilePath)
+	content, err := ioutil.ReadFile(confFilePath)
 	if err != nil {
 		return nil, err
 	}
