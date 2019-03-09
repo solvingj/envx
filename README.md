@@ -1,9 +1,9 @@
-# Build Status
+#### Build Status
 | windows | macos | linux | 
 |-----------|---------|-------|
 |[![Build Status](https://jerrywiltse.visualstudio.com/envx/_apis/build/status/envx?branchName=master&jobName=windows_x64)](https://jerrywiltse.visualstudio.com/envx/_build/latest?definitionId=3&branchName=master)|[![Build Status](https://jerrywiltse.visualstudio.com/envx/_apis/build/status/envx?branchName=master&jobName=macos_x64)](https://jerrywiltse.visualstudio.com/envx/_build/latest?definitionId=3&branchName=master)|[![Build Status](https://jerrywiltse.visualstudio.com/envx/_apis/build/status/envx?branchName=master&jobName=linux_x64)](https://jerrywiltse.visualstudio.com/envx/_build/latest?definitionId=3&branchName=master)
 
-# Latest Version
+#### Latest Version
 [ ![Download](https://api.bintray.com/packages/solvingj/public-bin/envx/images/download.svg) ](https://bintray.com/solvingj/public-bin/envx/_latestVersion)
 
 
