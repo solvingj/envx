@@ -7,7 +7,7 @@ variables:
   VERSION: $(Build.SourceBranchName)
   PLATFORM: $(System.Phasename)
   BT_API: https://api.bintray.com/content
-  BT_REPO: public-generic
+  BT_REPO: public-bin
   BT_OPTS: publish=1&override=1
   BT_URL: $(BT_API)/$(BT_USER)/$(BT_REPO)/$(BIN_NAME)/$(VERSION)/$(PLATFORM)?$(BT_OPTS)
   
