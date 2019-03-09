@@ -101,9 +101,9 @@ func TestCommandEnvList(t *testing.T) {
 func TestCommandRunEcho(t *testing.T) {
 	var commandArg string
 	if runtime.GOOS == "windows" {
-		commandArg = `-command=cmd /c echo TESTVAR=%TESTVAR%`
+		commandArg = `cmd /c echo TESTVAR=%TESTVAR%`
 	} else {
-		commandArg = `-command=/bin/sh -c "echo TESTVAR=$TESTVAR"`
+		commandArg = `/bin/sh -c echo TESTVAR=$TESTVAR`
 	}
 
 	command := "envx run " + commandArg
