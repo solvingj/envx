@@ -26,7 +26,7 @@ jobs:
     steps:
       - script: go build -o $(BIN_FILENAME)
         displayName: go_build
-      - script: curl -T $(BIN_FILENAME) -u$(BT_USER):$(BT_KEY) $(BT_URL)
+      - script: curl -T $(BIN_FILENAME) -u$(BT_USER):$(BT_KEY) "$(BT_URL)"
         displayName: bintray_publish
         condition: startsWith(variables['Build.SourceBranch'], 'refs/tags')
   - job: macos_x64
@@ -37,7 +37,7 @@ jobs:
     steps:
       - script: go build -o $(BIN_FILENAME)
         displayName: go_build
-      - script: curl -T $(BIN_FILENAME) -u$(BT_USER):$(BT_KEY) $(BT_URL)
+      - script: curl -T $(BIN_FILENAME) -u$(BT_USER):$(BT_KEY) "$(BT_URL)"
         displayName: bintray_publish
         condition: startsWith(variables['Build.SourceBranch'], 'refs/tags')
   - job: linux_x64
@@ -48,6 +48,6 @@ jobs:
     steps:
       - script: go build -o $(BIN_FILENAME)
         displayName: go_build
-      - script: curl -T $(BIN_FILENAME) -u$(BT_USER):$(BT_KEY) $(BT_URL)
+      - script: curl -T $(BIN_FILENAME) -u$(BT_USER):$(BT_KEY) "$(BT_URL)"
         displayName: bintray_publish
         condition: startsWith(variables['Build.SourceBranch'], 'refs/tags')
