@@ -15,25 +15,25 @@
 
 Precompiled binaries for Windows, Linux, and macOS are hosted on Bintray.com (courtesy of JFrog).  Eventually, we may package them and submit to the various package managers. 
 
-Windows:    
-    POSH: `curl -OutFile envx.exe https://dl.bintray.com/solvingj/public-bin/windows_x64/envx.exe`    
-    CMD: `powershell -command "curl -OutFile envx.exe https://dl.bintray.com/solvingj/public-bin/windows_x64/envx.exe"`  
+#### Windows:    
+    POSH: curl -OutFile envx.exe https://dl.bintray.com/solvingj/public-bin/windows_x64/envx.exe 
+    CMD: powershell -command "curl -OutFile envx.exe https://dl.bintray.com/solvingj/public-bin/windows_x64/envx.exe"
 	
-macOS:   
-    `curl -L "https://dl.bintray.com/solvingj/public-bin/macos_x64/envx" -o envx`
+#### macOS:   
+    curl -L "https://dl.bintray.com/solvingj/public-bin/macos_x64/envx" -o envx
 
-Linux:    
-    `curl -L "https://dl.bintray.com/solvingj/public-bin/linux_x64/envx" -o envx`
+#### Linux:    
+    curl -L "https://dl.bintray.com/solvingj/public-bin/linux_x64/envx" -o envx
     
 
 # Build Instructions
 
 If you want to contribute to the code, all you need is a recent version of Go (1.10.0+).  With that, you can just run these commands in the root of the repository: 
 
-## Windows: 
+#### Windows: 
     go build -o envx.exe
     
-## Linux/macOS
+#### Linux/macOS
     go build -o envx
 
 To run unit tests, use the following standard command: 
