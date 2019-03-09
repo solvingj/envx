@@ -1,5 +1,4 @@
 variables:
-  GOBIN:  "$(GOPATH)/bin" # Go binaries path
   GOPATH: "$(system.defaultWorkingDirectory)/gopath"
   GO111MODULE: "on"
   MODULEPATH: "$(GOPATH)/src/github.com/$(build.repository.name)"
