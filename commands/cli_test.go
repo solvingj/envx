@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"flag"
 	"github.com/codegangsta/cli"
+	"os"
 	"runtime"
 	"strings"
 	"testing"
@@ -125,6 +126,7 @@ func TestCommandRunEcho(t *testing.T) {
 }
 
 func TestCommandEnvShow(t *testing.T) {
+	_ = os.Setenv("ENVX_HOME_DIR", "test_data")
 	command := "envx env show test_env_01"
 	result, err := runAppSubCmd(command)
 
