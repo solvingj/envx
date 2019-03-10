@@ -11,9 +11,7 @@ import (
 	rundocs "github.com/solvingj/envx/docs/envx/run"
 )
 
-const version = "0.1.0"
-
-func GetApp() *cli.App {
+func GetApp(version string) *cli.App {
 	app := cli.NewApp()
 	app.Name = "envx"
 	app.Version = version

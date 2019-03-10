@@ -1,8 +1,8 @@
 package system
 
 import (
+	"github.com/mitchellh/go-homedir"
 	"os"
-	"os/user"
 )
 // FileExists reports whether the named file exists as a boolean
 func FileExists(name string) bool {
@@ -24,9 +24,9 @@ func DirExists(name string) bool {
 }
 
 func HomeDir() string {
-	currentUser, err := user.Current()
+	homeDir, err := homedir.Dir()
 	if err != nil {
-		return currentUser.HomeDir
+		return homeDir
 	}else{
 		return ""
 	}

@@ -12,7 +12,7 @@ import (
 
 func runAppSubCmd(command string) (string, error) {
 	args := strings.Split(command, " ")
-	app := GetApp()
+	app := GetApp("test")
 	outBuffer := new(bytes.Buffer)
 	app.Writer = outBuffer
 	parFlagSet := flag.NewFlagSet("", 0)

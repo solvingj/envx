@@ -7,6 +7,10 @@ import (
 	"os"
 )
 
+// Override at command-line with:
+//   go build -ldflags="-X main.Version=<SOMEVERSION>"
+var Version = "dev"
+
 func main() {
 	var log = logrus.New()
 	log.SetLevel(GetCliLogLevel())
@@ -15,14 +19,14 @@ func main() {
 }
 
 func execMain() error {
-	app := commands.GetApp()
+	app := commands.GetApp(Version)
 	args := os.Args
 	err := app.Run(args)
 	return err
 }
 
 func GetCliLogLevel() logrus.Level {
-	switch os.Getenv("ENVX_CLI_LOG_LEVEL") {
+	switch os.Getenv("ENVX_LOG_LEVEL") {
 	case "ERROR":
 		return logrus.ErrorLevel
 	case "WARN":
