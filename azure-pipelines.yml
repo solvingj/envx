@@ -9,6 +9,7 @@ variables:
   BT_REPO: public-bin
   BT_OPTS: publish=1&override=1
   BT_URL: $(BT_API)/$(BT_USER)/$(BT_REPO)/$(PKG)/$(VER)/$(PLAT)/$(FILE)?$(BT_OPTS)
+  LD_FLAGS: "-s -w -X main.Version=$(VER)"
   
 trigger:
   branches:
@@ -25,7 +26,7 @@ jobs:
     steps:
       - script: go test ./...
         displayName: go_test
-      - script: go build -o $(FILE) -ldflags="-X main.Version=$(VER)"
+      - script: go build -o $(FILE) -ldflags="$(LD_FLAGS)"
         displayName: go_build
       - script: curl -T $(FILE) -u$(BT_USER):$(BT_KEY) "$(BT_URL)"
         displayName: bintray_publish
@@ -38,7 +39,7 @@ jobs:
     steps:
       - script: go test ./...
         displayName: go_test
-      - script: go build -o $(FILE) -ldflags="-X main.Version=$(VER)"
+      - script: go build -o $(FILE) -ldflags="$(LD_FLAGS)"
         displayName: go_build
       - script: curl -T $(FILE) -u$(BT_USER):$(BT_KEY) "$(BT_URL)"
         displayName: bintray_publish
@@ -51,7 +52,7 @@ jobs:
     steps:
       - script: go test ./...
         displayName: go_test
-      - script: go build -o $(FILE) -ldflags="-X main.Version=$(VER)"
+      - script: go build -o $(FILE) -ldflags="$(LD_FLAGS)"
         displayName: go_build
       - script: curl -T $(FILE) -u$(BT_USER):$(BT_KEY) "$(BT_URL)"
         displayName: bintray_publish
