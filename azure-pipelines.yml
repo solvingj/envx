@@ -25,7 +25,7 @@ jobs:
     steps:
       - script: go test ./...
         displayName: go_test
-      - script: go build -o $(FILE)
+      - script: go build -o $(FILE) -ldflags="-X main.Version=$(VER)"
         displayName: go_build
       - script: curl -T $(FILE) -u$(BT_USER):$(BT_KEY) "$(BT_URL)"
         displayName: bintray_publish
@@ -38,7 +38,7 @@ jobs:
     steps:
       - script: go test ./...
         displayName: go_test
-      - script: go build -o $(FILE)
+      - script: go build -o $(FILE) -ldflags="-X main.Version=$(VER)"
         displayName: go_build
       - script: curl -T $(FILE) -u$(BT_USER):$(BT_KEY) "$(BT_URL)"
         displayName: bintray_publish
@@ -51,7 +51,7 @@ jobs:
     steps:
       - script: go test ./...
         displayName: go_test
-      - script: go build -o $(FILE)
+      - script: go build -o $(FILE) -ldflags="-X main.Version=$(VER)"
         displayName: go_build
       - script: curl -T $(FILE) -u$(BT_USER):$(BT_KEY) "$(BT_URL)"
         displayName: bintray_publish
