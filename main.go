@@ -22,7 +22,7 @@ func execMain() error {
 }
 
 func GetCliLogLevel() logrus.Level {
-	switch os.Getenv("ENVX_CLI_LOG_LEVEL") {
+	switch os.Getenv("ENVX_LOG_LEVEL") {
 	case "ERROR":
 		return logrus.ErrorLevel
 	case "WARN":
