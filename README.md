@@ -6,6 +6,9 @@
 #### Latest Version
 [ ![Download](https://api.bintray.com/packages/solvingj/public-bin/envx/images/download.svg) ](https://bintray.com/solvingj/public-bin/envx/_latestVersion)
 
+#### Project Status  
+
+Pre-pre-alpha: Several core functions not yet implemented
 
 # envx
 
