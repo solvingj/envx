@@ -11,13 +11,13 @@
 
 `envx` aims to provide a native, cross-platform, cross-language command-line utility for managing environment variables during development workflows in a robust way.  It was inspired by the "Profiles" feature of the Conan Package Manager for C and C++.  It is also somewhat inspired by a common convention shared by Python, Docker, and others which is supporting `-e env_var` and `-e env_var=value` as command-line arguments.  It also aims to enable users to make use of the existing `.env` file format which is becoming somewhat in some ecosystems. 
 
-# How To Use: 
+## How To Use: 
 
-With `envx`, the workflow of a given script can look like this: 
+With `envx`, you can execute your script or application using the following method: 
 
-        envx run --with-env somevars.env --with-env somevars2.env "any_other_app" 
+        envx run --with-env somevars.env --with-env somevars2.env "<your_script_or_app>" 
 
-# Value Proposition
+## Advantage 
 		
 There is a key difference with the way this command is composed, compared to the more traditional method.  Here is an example of how devops scripts look in many respositories: 
 
@@ -31,14 +31,14 @@ With this pattern, it's very difficult to find a good balance between making the
 
 As mentioned earlier, we get several immediate benefits with `envx` and the compositional approach.  We get environment variables which are stored in declarative, non-proprietary way.  We get behavior that is consistent across any platform and ecosystem.  The variables used by our pipelines are now completely decoupled from our current scripting language.  We can now have fewer and slimmer scripts, and more freedom to change our scripting mechanisms.  Furthermore, in many cases, we can call our tools directly without using a script at all.  
 
-# Initial Goals:   
+## Initial Goals:   
 - Provide alternative to `.sh` and `.bat` scripts which  `export` and `set` 
 - Enable users to avoid env var setting from script running via a "run --with-env" functionality
 - Enable logging of specific environment variable values
 - Providing composability of variables from multiple files and CLI args
 - Providing flexible storage mechanism including user-profile (default) or an arbitrary path
 
-# Future Goals  
+## Future Goals  
 - Enable prepend/append/replace-in for environment variables
 - Providing secure storage for credentials as part of environments
 - Sharing environments via git repository
@@ -46,7 +46,7 @@ As mentioned earlier, we get several immediate benefits with `envx` and the comp
 - Providing first-class mechanisms for variables relating to search paths: LD_LIBRARY_PATH, PATH, etc.
 - Providing an extensibility model for various ecosystems 
 
-# Download Instructions
+## Download Instructions
 
 Precompiled binaries for Windows, Linux, and macOS are hosted on Bintray.com (courtesy of JFrog).  Eventually, we may package them and submit to the various package managers. 
 
@@ -76,7 +76,7 @@ To run unit tests, use the following standard command:
     go test ./...
     
     
-# Domain Background
+## Domain Background
 
 Environment variables are one of very few "common coins" used by virtually all operating systems of software devlopment ecosystems. They are used for managing both local development environments, and are essential for automation in CI platforms and cloud services.  In many cases, they are commonly set in `sh` and `bat` scripts prior to launching developer tools.  In CI systems, we see environment variables representing the cornerstone of a "delcarative" instruction set. They are also compositional in nature, allowing variables to be overridden or appended to at any point later in the call stack.  In practice, they function as implicit arguments which can flow through to any tool involved in a scripted process or pipeline, without intermediate tools and scripts needing to know about them.   
 
@@ -84,7 +84,7 @@ This implicit behavior is what makes them essential for automation, but it can b
 
 The importance of an effective strategy for using environment variables is typically a function of the size of the team and complexity of a project or environment. For small teams or small environments, it may be inconsequential, but for bigger teams and bigger environments, such a strategy can have a massive impact on scalability and maintainability of an entire devops pipeline.  In either case, there seems to be much room for improvement regarding the tools we have for interacting with environment variables. 
 
-# Motivations
+## Motivations
 
 While `sh` and `bat` scripts is often sufficient for setting environment variables for small teams with simple environments, it has many characteristics which are undesirable to larger teams with more complex environments, such as cross-platform and cross-ecosystem use-cases.  Thus, many developers reach for "cross-platform" scripting languages such as python or groovy instead of native scripts.  While they do begin to address these issues, they come with significant drawbacks as well. 
 
