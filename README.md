@@ -11,7 +11,7 @@
 
 `envx` aims to provide a native, cross-platform, cross-language command-line utility for managing environment variables during development workflows in a robust way.  It was inspired by the "Profiles" feature of the Conan Package Manager for C and C++.  It is also somewhat inspired by a common convention shared by Python, Docker, and others which is supporting `-e env_var` and `-e env_var=value` as command-line arguments.  It also aims to enable users to make use of the existing `.env` file format which is becoming somewhat in some ecosystems. 
 
-## How To Use: 
+## How To Use  
 
 With `envx`, you can execute your script or application using the following method: 
 
@@ -31,7 +31,7 @@ With this pattern, it's very difficult to find a good balance between making the
 
 As mentioned earlier, we get several immediate benefits with `envx` and the compositional approach.  We get environment variables which are stored in declarative, non-proprietary way.  We get behavior that is consistent across any platform and ecosystem.  The variables used by our pipelines are now completely decoupled from our current scripting language.  We can now have fewer and slimmer scripts, and more freedom to change our scripting mechanisms.  Furthermore, in many cases, we can call our tools directly without using a script at all.  
 
-## Initial Goals:   
+## Initial Goals  
 - Provide alternative to `.sh` and `.bat` scripts which  `export` and `set` 
 - Enable users to avoid env var setting from script running via a "run --with-env" functionality
 - Enable logging of specific environment variable values
