@@ -10,7 +10,42 @@
 # envx
 
 `envx` aims to provide a native, cross-platform, cross-language command-line utility for managing environment variables during development workflows in a robust way.  It was inspired by the "Profiles" feature of the Conan Package Manager for C and C++.  It is also somewhat inspired by a common convention shared by Python, Docker, and others which is supporting `-e env_var` and `-e env_var=value` as command-line arguments.  It also aims to enable users to make use of the existing `.env` file format which is becoming somewhat in some ecosystems. 
-    
+
+# How To Use: 
+
+With `envx`, the workflow of a given script can look like this: 
+
+        envx run --with-env somevars.env --with-env somevars2.env "any_other_app" 
+
+# Value Proposition
+		
+There is a key difference with the way this command is composed, compared to the more traditional method.  Here is an example of how devops scripts look in many respositories: 
+
+    scripts_dir
+        run_tests.xyz -> sets vars -> calls test suite
+        build_all_dev.xyz -> sets vars -> calls build system
+        build_all_prod.xyz -> sets  vars -> calls build system
+        deploy_nightly.xyz -> ...
+
+With this pattern, it's very difficult to find a good balance between making the scripts "turn-key" and making the scripts "flexible".  When trying to make common operations "turn-key", you end up with a bunch of single-purpose scripts which gets messy and still don't address all the common workflows for the team.  Developers will still often have to modify or copy scripts to suit their specific needs.  When trying to write scripts which are more flexible so that you don't have as many, you effectively end up writing, exposing, and maintaining worse versions of the APIs to each of the tools the script will call. 
+
+As mentioned earlier, we get several immediate benefits with `envx` and the compositional approach.  We get environment variables which are stored in declarative, non-proprietary way.  We get behavior that is consistent across any platform and ecosystem.  The variables used by our pipelines are now completely decoupled from our current scripting language.  We can now have fewer and slimmer scripts, and more freedom to change our scripting mechanisms.  Furthermore, in many cases, we can call our tools directly without using a script at all.  
+
+# Initial Goals:   
+- Provide alternative to `.sh` and `.bat` scripts which  `export` and `set` 
+- Enable users to avoid env var setting from script running via a "run --with-env" functionality
+- Enable logging of specific environment variable values
+- Providing composability of variables from multiple files and CLI args
+- Providing flexible storage mechanism including user-profile (default) or an arbitrary path
+
+# Future Goals  
+- Enable prepend/append/replace-in for environment variables
+- Providing secure storage for credentials as part of environments
+- Sharing environments via git repository
+- A member of a future collection of cross-platform utilities with similar vision
+- Providing first-class mechanisms for variables relating to search paths: LD_LIBRARY_PATH, PATH, etc.
+- Providing an extensibility model for various ecosystems 
+
 # Download Instructions
 
 Precompiled binaries for Windows, Linux, and macOS are hosted on Bintray.com (courtesy of JFrog).  Eventually, we may package them and submit to the various package managers. 
@@ -56,37 +91,3 @@ While `sh` and `bat` scripts is often sufficient for setting environment variabl
 The choice of scripting language and strategy has a major impact on the developer and automation experience, as these scripts become the entry-point for most of the developer tools in the environment, such as docker, build systems, unit-test suites, package managers, etc.  So, in most cases, the automation and scripting language represents a second layer of language, dependency, and complexity for working with the tools for a given project or team.  Meanwhile, in many cases, the primary function these scripts serve is simply to set environment variables and then call other tools.  The result is a proliferation of "wrapper" scripts which clutter up repositories and workflows, and make automation really unpleasant.
 
 While `envx` does not aim to eliminate the use of wrapper scripts for development and automatin workflows, it does aim to extract the responsibility of setting environment variables for these workflows.  Extracting this responsibility from the scripts creates many immediate advantages, but also opens the door to something much more significant: inverting the composition paradigm for automation.
-
-#  Inverting Composition Flow
-
-Here is a loose description of how many scripts function in many respositories: 
-
-    scripts_dir
-        run_tests.xyz -> sets vars -> calls test suite
-        build_all_dev.xyz -> sets vars -> calls build system
-        build_all_prod.xyz -> sets  vars -> calls build system
-        deploy_nightly.xyz -> ...
-
-With this pattern, it's very difficult to find a good balance between making the scripts "turn-key" and making the scripts "flexible".  When trying to make common operations "turn-key", you end up with a bunch of single-purpose scripts which gets messy and still don't address all the common workflows for the team.  Developers will still often have to modify or copy scripts to suit their specific needs.  When trying to have fewer scripts which are more flexible, you end up writing, exposing, and maintaining worse APIs to each of the tools the script will call. 
-
-With `envx`, the workflow of a given script can look like this instead: 
-
-                envx run --with-env somevars.env --with-env somevars2.env "build system" 
-        
-As mentioned earlier, we get several immediate benefits with this approach.  We get composition of environment variables which are stored in declarative, non-proprietary way.  We get behavior that is consistent across any platform and ecosystem.  The variables used by our pipelines are now completely decoupled from our current scripting language.  We can now have fewer and slimmer scripts, and more freedom to change our scripting mechanisms.  Furthermore, in many cases, we can call our tools directly without using a script at all.  
-
-
-Initial Goals include: 
-- Provide alternative to `.sh` and `.bat` scripts which  `export` and `set` 
-- Enable users to avoid env var setting from script running via a "run --with-env" functionality
-- Enable logging of specific environment variable values
-- Providing composability of variables from multiple files and CLI args
-- Providing flexible storage mechanism including user-profile (default) or an arbitrary path
-
-Future Goals Include
-- Enable prepend/append/replace-in for environment variables
-- Providing secure storage for credentials as part of environments
-- Sharing environments via git repository
-- A member of a future collection of cross-platform utilities with similar vision
-- Providing first-class mechanisms for variables relating to search paths: LD_LIBRARY_PATH, PATH, etc.
-- Providing an extensibility model for various ecosystems 
