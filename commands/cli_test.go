@@ -19,7 +19,7 @@ func runAppSubCmd(command string) (string, error) {
 	parContext := cli.NewContext(app, parFlagSet, nil)
 
 	flagSet := flag.NewFlagSet("", 0)
-	flagSet.Parse(args)
+	_ = flagSet.Parse(args)
 	context := cli.NewContext(app, flagSet, parContext)
 	err := app.RunAsSubcommand(context)
 

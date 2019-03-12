@@ -3,7 +3,7 @@ package main
 import (
 	"github.com/sirupsen/logrus"
 	"github.com/solvingj/envx/commands"
-	"github.com/solvingj/envx/system"
+	"github.com/solvingj/envx/commands/common"
 	"os"
 )
 
@@ -15,7 +15,7 @@ func main() {
 	var log = logrus.New()
 	log.SetLevel(GetCliLogLevel())
 	err := execMain()
-	system.ExitOnErr(err)
+	common.ExitOnErr(err)
 }
 
 func execMain() error {

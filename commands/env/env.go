@@ -6,7 +6,6 @@ import (
 	"github.com/solvingj/envx/commands/common"
 	envdocs "github.com/solvingj/envx/docs/envx/env"
 	"github.com/solvingj/envx/env"
-	"github.com/solvingj/envx/system"
 )
 
 func GetCommands() []cli.Command {
@@ -61,7 +60,7 @@ func GetCommands() []cli.Command {
 func ListEnvCmd(c *cli.Context) {
 	err := env.ListEnvs()
 	if err != nil {
-		system.ExitOnErr(err)
+		common.ExitOnErr(err)
 	}
 }
 
@@ -72,7 +71,7 @@ func ShowEnvCmd(c *cli.Context) {
 	var envId = c.Args().Get(0)
 	err := env.ShowEnv(envId)
 	if err != nil {
-		system.ExitOnErr(err)
+		common.ExitOnErr(err)
 	}
 }
 
@@ -80,7 +79,7 @@ func ShowEnvCmd(c *cli.Context) {
 func NewEnvCmd(c *cli.Context) {
 	err := errors.New("command not implemented")
 	if err != nil {
-		system.ExitOnErr(err)
+		common.ExitOnErr(err)
 	}
 	//if len(c.Args()) < 4 {
 	//	cliutils.PrintHelpAndExitWithError("Wrong number of arguments.", c)
@@ -88,7 +87,7 @@ func NewEnvCmd(c *cli.Context) {
 	//	var envId = c.Args()[3]
 	//	err := env.New(envId)
 	//	if err != nil {
-	//		system.ExitOnErr(err)
+	//		common.ExitOnErr(err)
 	//	}
 	//}
 }
@@ -97,7 +96,7 @@ func NewEnvCmd(c *cli.Context) {
 func DeleteEnvCmd(c *cli.Context) {
 	err := errors.New("command not implemented")
 	if err != nil {
-		system.ExitOnErr(err)
+		common.ExitOnErr(err)
 	}
 	//if len(c.Args()) < 4 {
 	//	cliutils.PrintHelpAndExitWithError("Wrong number of arguments.", c)
@@ -105,7 +104,7 @@ func DeleteEnvCmd(c *cli.Context) {
 	//	var envId = c.Args()[3]
 	//	err := env.New(envId)
 	//	if err != nil {
-	//		system.ExitOnErr(err)
+	//		common.ExitOnErr(err)
 	//	}
 	//}
 }
@@ -114,7 +113,7 @@ func DeleteEnvCmd(c *cli.Context) {
 func UpdateEnvCmd(c *cli.Context) {
 	err := errors.New("command not implemented")
 	if err != nil {
-		system.ExitOnErr(err)
+		common.ExitOnErr(err)
 	}
 	//if len(c.Args()) < 6 {
 	//	cliutils.PrintHelpAndExitWithError("Wrong number of arguments.", c)
@@ -122,7 +121,7 @@ func UpdateEnvCmd(c *cli.Context) {
 	//	var envId = c.Args()[3]
 	//	err := env.New(envId)
 	//	if err != nil {
-	//		system.ExitOnErr(err)
+	//		common.ExitOnErr(err)
 	//	}
 	//}
 }

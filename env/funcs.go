@@ -4,10 +4,10 @@ import (
 	"errors"
 	"fmt"
 	"github.com/joho/godotenv"
+	log "github.com/sirupsen/logrus"
 	"github.com/solvingj/envx/config"
 	"github.com/solvingj/envx/system"
 	"io/ioutil"
-	"log"
 	"path/filepath"
 	"strings"
 )

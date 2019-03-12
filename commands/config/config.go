@@ -5,7 +5,6 @@ import (
 	"github.com/codegangsta/cli"
 	"github.com/solvingj/envx/commands/common"
 	configdocs "github.com/solvingj/envx/docs/envx/config"
-	"github.com/solvingj/envx/system"
 )
 
 func GetCommands() []cli.Command {
@@ -31,7 +30,7 @@ func getFlags() []cli.Flag {
 func configCmd(c *cli.Context) {
 	err := errors.New("command not implemented")
 	if err != nil {
-		system.ExitOnErr(err)
+		common.ExitOnErr(err)
 	}
 	if len(c.Args()) < 2 {
 		common.PrintHelpAndExitWithError("Wrong number of arguments.", c)
@@ -47,7 +46,7 @@ func configCmd(c *cli.Context) {
 	//		commands.ShowConfig(configCommandConfiguration.Interactive)
 	//		return
 	//
-	//		system.ExitOnErr(err)
+	//		common.ExitOnErr(err)
 	//	}
 	//}
 }

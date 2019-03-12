@@ -25,19 +25,17 @@ func GetApp(version string) *cli.App {
 func GlobalOptions() []cli.Flag {
 	return []cli.Flag{
 		cli.StringFlag{
-			Name:  "log-level",
-			Usage: docs.LogLevelUsage,
+			Name:   "log-level",
+			Usage:  docs.LogLevelUsage,
 			EnvVar: "ENVX_LOG_LEVEL",
-
 		},
 		cli.StringFlag{
-			Name:  "envx-home",
-			Usage: docs.HomeDirectoryUsage,
+			Name:   "envx-home",
+			Usage:  docs.HomeDirectoryUsage,
 			EnvVar: "ENVX_HOME_DIR",
 		},
 	}
 }
-
 
 func GetCommands() []cli.Command {
 	return []cli.Command{
@@ -77,5 +75,3 @@ func RunCommand() cli.Command {
 		},
 	}
 }
-
-

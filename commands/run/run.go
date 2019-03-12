@@ -5,7 +5,6 @@ import (
 	"github.com/solvingj/envx/commands/common"
 	"github.com/solvingj/envx/env"
 	"github.com/solvingj/envx/run"
-	"github.com/solvingj/envx/system"
 )
 
 func RunCmd(c *cli.Context) {
@@ -23,12 +22,12 @@ func RunCmd(c *cli.Context) {
 	for _, envName := range envArgs {
 		environ, err := env.ReadEnv(envName)
 		if err != nil {
-			system.ExitOnErr(err)
+			common.ExitOnErr(err)
 		}
 		for k, v := range environ.Vars {
 			envVarsToUse = append(envVarsToUse, k+"="+v)
 			if err != nil {
-				system.ExitOnErr(err)
+				common.ExitOnErr(err)
 			}
 		}
 	}
@@ -38,7 +37,7 @@ func RunCmd(c *cli.Context) {
 
 	_, _, err := run.Run(cmd, cmdArgs, envVarsToUse, printVars)
 	if err != nil {
-		system.ExitOnErr(err)
+		common.ExitOnErr(err)
 	}
 }
 
