@@ -16,9 +16,39 @@ Pre-pre-alpha: Several core functions not yet implemented
 
 ## How To Use  
 
+The API for managing environments is very simple:
+
+```
+        NAME:
+                envx env - Work with envx environments
+
+        USAGE:
+                envx env command [arguments...]
+
+        COMMANDS:
+                list    List all envx environments
+                show    Print contents of envx environment to stdout
+                new     Create a new and empty envx environment
+                delete  Delete an envx environment
+                update  Update a value inside an envx environment
+```
+
+Currently, the other significant command is the `run` command: 
+```
+        NAME:
+                envx run - Run arbitrary command with env vars applied
+
+        USAGE:
+                envx run [command options] <command_to_run>
+
+        OPTIONS:
+                -e            List of environment variables in the form of "key1=value1"
+                --with-env    List of environments to apply prior to running command
+```
+
 With `envx`, you can execute your script or application using the following method: 
 
-        envx run --with-env somevars.env --with-env somevars2.env "<your_script_or_app>" 
+        envx run --with-env some_env1 --with-env some_env2 "<your_script_or_app>" 
 
 ## Advantage 
 		
